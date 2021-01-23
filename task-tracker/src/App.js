@@ -28,15 +28,17 @@ const tasks=[
 const [myTasks,setMyTasks]=useState(tasks)
 
 const deleteTask=(id)=>{
- const arr =myTasks.filter(task=>task.id != id)
+ const newArr=myTasks.filter(task=>task.id !== id)
  setMyTasks(
-   arr
+   newArr
  )
 }
   return (
     <div className="App">
-      <Header title='Hello'/>
-      <Tasks myTasks={myTasks} deleteTask={deleteTask}/>
+      <Header title='Task Tracker'/>
+      {myTasks.length > 0 ? (<Tasks myTasks={myTasks} deleteTask={deleteTask}/>)
+      :
+      (<h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
     </div>
   );
 }
