@@ -1,12 +1,6 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Lectures at UCSC",
-      "day": "Jan 22nd at 8.00 a.m.",
-      "reminder": false
-    },
-    {
       "id": 2,
       "text": "Lectures at UCSC",
       "day": "Jan 22nd at 10.00 a.m.",
@@ -17,6 +11,18 @@
       "text": "Going to sleep",
       "day": "Jan 22nd at 10.00 p.m.",
       "reminder": false
+    },
+    {
+      "text": "Eating Chicken",
+      "day": "Feb 21st at 11.00 p.m.",
+      "reminder": true,
+      "id": 4
+    },
+    {
+      "text": "Sleeping",
+      "day": "2nd January at 11.00 p.m.",
+      "reminder": true,
+      "id": 5
     }
   ]
 }

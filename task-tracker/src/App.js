@@ -20,7 +20,10 @@ useEffect(()=>{
   }
   fetchTasks()
 },[])
-const deleteTask=(id)=>{
+const deleteTask=async(id)=>{
+  await fetch(`http://localhost:5000/tasks/${id}`,{
+    method:'DELETE'
+  })
  const newDeleteArr=myTasks.filter(task=>task.id !== id)
  setMyTasks(
    newDeleteArr
@@ -39,16 +42,27 @@ const toggleReminder=(id)=>{
     )
 }
 
-const addTask=(text,date,reminder)=>{
-  setMyTasks([
-    ...myTasks,
-    {
-      id:Math.floor(Math.random()*100),
-      text,
-      day:date,
-      reminder
-    }
-  ])
+const addTask=async(text,date,reminder)=>{
+  const task={
+    text,
+    day:date,
+    reminder
+  }
+  const res=await fetch(`http://localhost:5000/tasks?`,{
+    method:'POST',
+    headers:{
+      'Content-type':'application/json'
+    },
+    body:JSON.stringify(task)
+  })
+
+  const data=await res.json()
+  setMyTasks(
+    [
+      ...myTasks,
+      data
+    ]
+  )
 }
 
 const handleFormDisplay=()=>{
