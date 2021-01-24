@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "text": "Lectures at UCSC",
+      "day": "Jan 22nd at 8.00 a.m.",
+      "reminder": false
+    },
+    {
+      "id": 2,
+      "text": "Lectures at UCSC",
+      "day": "Jan 22nd at 10.00 a.m.",
+      "reminder": false
+    },
+    {
+      "id": 3,
+      "text": "Going to sleep",
+      "day": "Jan 22nd at 10.00 p.m.",
+      "reminder": false
+    }
+  ]
+}

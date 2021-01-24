@@ -1,36 +1,25 @@
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AddTask from "./components/AddTask";
 
 function App() {
 
-const tasks=[
-    {
-        id:1,
-        text:'Lectures at UCSC',
-        day:'Jan 22nd at 8.00 a.m.',
-        reminder:false
-    },
-    {
-        id:2,
-        text:'Lectures at UCSC',
-        day:'Jan 22nd at 10.00 a.m.',
-        reminder:false
-    },
-    {
-        id:3,
-        text:'Going to sleep',
-        day:'Jan 22nd at 10.00 p.m.',
-        reminder:false
-    }
-]
 
-const [myTasks,setMyTasks]=useState(tasks)
+const [myTasks,setMyTasks]=useState([])
 
 const [toggleButton,setToggleButton]=useState(false)
 
-
+useEffect(()=>{
+  const fetchTasks=async ()=>{
+    const res=await fetch('http://localhost:5000/tasks')
+    const data=await res.json() 
+    setMyTasks(
+      data
+    )
+  }
+  fetchTasks()
+},[])
 const deleteTask=(id)=>{
  const newDeleteArr=myTasks.filter(task=>task.id !== id)
  setMyTasks(
@@ -52,7 +41,7 @@ const toggleReminder=(id)=>{
 
 const addTask=(text,date,reminder)=>{
   setMyTasks([
-    ...tasks,
+    ...myTasks,
     {
       id:Math.floor(Math.random()*100),
       text,
@@ -69,15 +58,16 @@ const handleFormDisplay=()=>{
 }
   return (
     <div className="App">
-      <Header title='Task Tracker' formShower={handleFormDisplay}/>
-      {toggleButton === true ? (
+      <Header title='Task Tracker' toggleButton={toggleButton} formShower={handleFormDisplay}/>
+      {toggleButton ? (
         <AddTask addTask={addTask} />
       ):(
         ''
       )}
-      {myTasks.length > 0 ? (<Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
-      :
-      (<h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
+      {myTasks.length > 0 ? (
+        <Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
+      :(
+        <h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
     </div>
   );
 }
