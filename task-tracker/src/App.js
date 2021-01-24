@@ -1,7 +1,10 @@
+import {BrowserRouter as Router,Route} from 'react-router-dom'
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import { useEffect, useState } from "react"
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from './components/About';
 
 function App() {
 
@@ -93,6 +96,7 @@ const handleFormDisplay=()=>{
   )
 }
   return (
+    <Router >
     <div className="App">
       <Header title='Task Tracker' toggleButton={toggleButton} formShower={handleFormDisplay}/>
       {toggleButton ? (
@@ -100,11 +104,19 @@ const handleFormDisplay=()=>{
       ):(
         ''
       )}
-      {myTasks.length > 0 ? (
-        <Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
-      :(
-        <h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
+      <Route path='/' exact render={(props)=>(
+        <>
+        {myTasks.length > 0 ? (
+          <Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
+        :(
+          <h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
+        </>
+      )
+      }/>
+      <Route path='/about' component={About} />
+      <Footer />
     </div>
+    </Router>
   );
 }
  
