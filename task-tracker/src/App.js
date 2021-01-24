@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import { useState } from "react"
+import AddTask from "./components/AddTask";
 
 function App() {
 
@@ -48,6 +49,7 @@ const toggleReminder=(id)=>{
   return (
     <div className="App">
       <Header title='Task Tracker'/>
+      <AddTask />
       {myTasks.length > 0 ? (<Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
       :
       (<h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
