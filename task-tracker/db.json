@@ -4,7 +4,7 @@
       "id": 2,
       "text": "Lectures at UCSC",
       "day": "Jan 22nd at 10.00 a.m.",
-      "reminder": false
+      "reminder": true
     },
     {
       "id": 3,

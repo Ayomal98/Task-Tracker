@@ -20,6 +20,7 @@ useEffect(()=>{
   }
   fetchTasks()
 },[])
+
 const deleteTask=async(id)=>{
   await fetch(`http://localhost:5000/tasks/${id}`,{
     method:'DELETE'
@@ -30,11 +31,32 @@ const deleteTask=async(id)=>{
  )
 }
 
-const toggleReminder=(id)=>{
+const fetchTask=async(id)=>{
+  const res=await fetch(`http://localhost:5000/tasks/${id}`)
+  const data =await res.json()
+  return data
+}
+
+
+const toggleReminder=async(id)=>{
+    const tasktoToggle=await fetchTask(id)
+    const updTask={
+      ...tasktoToggle,
+      reminder:!tasktoToggle.reminder
+    }
+
+    const res=await fetch(`http://localhost:5000/tasks/${id}`,
+    {method:'PUT',
+    headers:{
+      'Content-type':'application/json'
+    },
+    body:JSON.stringify(updTask)
+  })
+  const data=await res.json()
     const newToggleArr=myTasks.map(task=>
       task.id === id ? {
         ...task,
-        reminder:!task.reminder
+        reminder:data.reminder
       }:task
     )
     setMyTasks(
