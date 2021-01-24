@@ -28,6 +28,9 @@ const tasks=[
 
 const [myTasks,setMyTasks]=useState(tasks)
 
+const [toggleButton,setToggleButton]=useState(false)
+
+
 const deleteTask=(id)=>{
  const newDeleteArr=myTasks.filter(task=>task.id !== id)
  setMyTasks(
@@ -58,10 +61,20 @@ const addTask=(text,date,reminder)=>{
     }
   ])
 }
+
+const handleFormDisplay=()=>{
+  setToggleButton(
+    !toggleButton
+  )
+}
   return (
     <div className="App">
-      <Header title='Task Tracker'/>
-      <AddTask addTask={addTask} />
+      <Header title='Task Tracker' formShower={handleFormDisplay}/>
+      {toggleButton === true ? (
+        <AddTask addTask={addTask} />
+      ):(
+        ''
+      )}
       {myTasks.length > 0 ? (<Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
       :
       (<h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
