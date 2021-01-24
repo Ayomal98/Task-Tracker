@@ -46,10 +46,22 @@ const toggleReminder=(id)=>{
       newToggleArr
     )
 }
+
+const addTask=(text,date,reminder)=>{
+  setMyTasks([
+    ...tasks,
+    {
+      id:Math.floor(Math.random()*100),
+      text,
+      day:date,
+      reminder
+    }
+  ])
+}
   return (
     <div className="App">
       <Header title='Task Tracker'/>
-      <AddTask />
+      <AddTask addTask={addTask} />
       {myTasks.length > 0 ? (<Tasks myTasks={myTasks} deleteTask={deleteTask} toggleReminder={toggleReminder}/>)
       :
       (<h1 style={{color:'red',textAlign:'center'}}>No Tasks Left</h1>)}
